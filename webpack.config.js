@@ -8,6 +8,36 @@ module.exports = {
         path: path.resolve(__dirname, "build"),
     },
 
+    module: {
+        rules: [{
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                },
+            },
+            {
+                test: /\.vue$/,
+                loader: "vue-loader",
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
+            },
+
+            {
+                test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
+                    }
+                }, ],
+                //type: 'asset/resource',
+            },
+        ],
+    },
+
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
